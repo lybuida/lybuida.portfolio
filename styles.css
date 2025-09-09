@@ -1,0 +1,434 @@
+/* ============ Root, Reset & Base ============ */
+:root{
+  /* Dark base + modern accents */
+  --bg-0:#0a0a0f;
+  --bg-1:#0f1016;
+  --bg-2:#161824;
+  --glass:rgba(255,255,255,.06);
+  --glass-brd:rgba(255,255,255,.12);
+  --blur:14px;
+
+  --text:#fff;
+  --muted:#a8a8b3;
+  --brand-1:#8b5cf6;   /* violet */
+  --brand-2:#06b6d4;   /* cyan */
+  --brand-3:#ef5da8;   /* pink */
+
+  /* Light/Accent/Gray section backgrounds (alternation option) */
+  --light:#ffffff;
+  --light-text:#1b1b25;
+  --accent-grad:linear-gradient(135deg, rgba(139,92,246,.18), rgba(0,212,255,.14));
+  --gray:#f5f7fb;
+  --gray-text:#1f2430;
+
+  --radius:16px;
+  --shadow:0 10px 40px rgba(0,0,0,.35);
+  --glow:0 0 40px rgba(139,92,246,.28);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", sans-serif;
+  background:var(--bg-0); color:var(--text); line-height:1.7;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ============ Containers ============ */
+.container{max-width:1200px;margin:0 auto;padding:0 22px}
+
+/* ============ Dynamic Gradient Background ============ */
+.animated-bg{
+  position:fixed;inset:0;z-index:-2;background:radial-gradient(1200px 800px at var(--mx,60%) var(--my,20%),
+    rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 700px at 15% 80%, rgba(6,182,212,.18), transparent 60%),
+    radial-gradient(800px 600px at 90% 50%, rgba(239,93,168,.16), transparent 60%), var(--bg-1);
+  transition:background-position .2s ease;
+}
+.animated-bg::after{
+  content:""; position:absolute; inset:-30% -20%;
+  background:conic-gradient(from 200deg at 50% 50%, rgba(255,255,255,.05), transparent 40%, rgba(255,255,255,.07), transparent 70%);
+  filter:blur(80px); z-index:-1; animation:spin 40s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ Header ============ */
+.header{position:sticky;top:0;z-index:10;background:rgba(10,10,15,.65);backdrop-filter:blur(var(--blur));
+  border-bottom:1px solid rgba(255,255,255,.08); transition:.25s ease; }
+.header.scrolled{background:rgba(10,10,15,.9); box-shadow:var(--shadow)}
+.header-content{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.logo{display:flex;flex-direction:column}
+.logo-name{font-weight:800;letter-spacing:.3px;background:linear-gradient(135deg,#fff,#b7b7c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-role{font-size:.92rem;color:var(--muted)}
+.nav-menu{display:flex;gap:22px;list-style:none}
+.nav-link{position:relative;opacity:.9}
+.nav-link::after{content:"";position:absolute;left:50%;bottom:-6px;width:0;height:2px;background:linear-gradient(90deg,var(--brand-1),var(--brand-2));transition:.25s;transform:translateX(-50%)}
+.nav-link:hover,.nav-link.active{opacity:1}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+
+/* ============ Hero ============ */
+.hero{min-height:100svh;display:flex;align-items:center}
+.hero-content{display:grid;grid-template-columns:1.2fr .8fr;gap:42px;align-items:center}
+.headline{font-size:clamp(2.3rem,6vw,4rem);line-height:1.08;font-weight:800;letter-spacing:.2px}
+.grad-text{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subhead{margin:14px 0 22px;color:#c8c8d1;max-width:56ch}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;font-weight:700;border:1px solid transparent;transition:.2s ease}
+.btn-primary{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));box-shadow:0 8px 28px rgba(139,92,246,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(139,92,246,.6)}
+.btn-secondary{background:var(--glass);backdrop-filter:blur(var(--blur));border-color:var(--glass-brd)}
+.btn-secondary:hover{border-color:rgba(139,92,246,.45)}
+.hero-card{padding:22px;border-radius:var(--radius);border:1px solid var(--glass-brd);box-shadow:var(--shadow);animation:float 6s ease-in-out infinite}
+.hero-name{text-align:center;font-weight:800}
+.hero-role{text-align:center;color:#cfd0da;margin-bottom:10px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px}
+.stat{background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);border-radius:12px;padding:14px;text-align:center}
+.stat-number{font-weight:800;color:#aee3ff}
+.stat-label{font-size:.78rem;color:#cfd0da}
+@keyframes float{50%{transform:translateY(-12px)}}
+
+/* ============ Sections (alternating themes) ============ */
+.section{padding:80px 0;position:relative;scroll-margin-top:90px}
+.section-header{text-align:center;margin-bottom:30px}
+.section-title{font-size:clamp(1.8rem,3.6vw,3rem);font-weight:800;background:linear-gradient(135deg,#fff,#dfe1ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-subtitle{max-width:64ch;margin:8px auto 0;color:#cfd0da}
+
+/* theme-light (trắng, chữ tím hồng) */
+.theme-light{background:var(--light);color:var(--light-text)}
+.theme-light .section-title{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.theme-light .section-subtitle{color:#3c4155}
+
+/* theme-accent (tím hồng) */
+.theme-accent{background:var(--accent-grad);border-top:1px solid rgba(139,92,246,.25);border-bottom:1px solid rgba(6,182,212,.18)}
+
+/* theme-gray (xám) */
+.theme-gray{background:var(--gray);color:var(--gray-text)}
+.theme-gray .section-title{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.theme-gray .section-subtitle{color:#4a5163}
+
+/* ============ About ============ */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+.about-main p{color:inherit}
+.theme-light .about-main p{color:#384159}
+.about-highlight{border-radius:16px}
+.glass{background:var(--glass);backdrop-filter:blur(var(--blur));border:1px solid var(--glass-brd)}
+.theme-light .glass{background:#fff;border:1px solid #e9eaf3;box-shadow:0 6px 24px rgba(10,10,15,.08)}
+.about-highlight h4{color:#7c3aed;margin-bottom:6px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+.skill-card{padding:18px;border-radius:16px}
+.skill-card h4{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:#8b5cf6}
+.skill-card .bullet{list-style:none}
+.skill-card .bullet li{padding:6px 0;color:inherit}
+
+/* Profile */
+.about-side{align-self:start}
+.profile-card{padding:22px;border-radius:16px;text-align:center}
+.profile-img{width:150px;height:150px;border-radius:999px;margin:0 auto 12px;background:linear-gradient(135deg,var(--brand-1),var(--brand-3));display:grid;place-items:center;color:#fff;font-size:46px;box-shadow:var(--glow)}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px}
+.badge{padding:6px 10px;border-radius:999px;font-weight:700;font-size:.82rem;border:1px solid rgba(139,92,246,.35);color:#8b5cf6;background:rgba(139,92,246,.12)}
+
+/* ============ Projects ============ */
+.projects-filter{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+.filter-btn{padding:10px 16px;border-radius:20px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-weight:700}
+.filter-btn:hover,.filter-btn.active{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));border-color:transparent}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.project-card{border-radius:16px;overflow:hidden;padding:16px}
+.project-thumb.ico{height:160px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg, rgba(0,212,255,.25), rgba(139,92,246,.25))}
+.project-thumb.ico i{font-size:46px}
+.project-body{padding:12px 2px 2px}
+.project-kicker{color:#cbd0df;margin:.2rem 0 .35rem;font-size:.95rem}
+.project-title{font-weight:800;font-size:1.2rem}
+.project-desc{color:#cfd0da;margin:.35rem 0 .6rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chip{background:rgba(255,255,255,.1);padding:6px 10px;border-radius:12px;font-weight:700;font-size:.82rem}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.btn-mini{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.16)}
+.btn-mini.primary{background:linear-gradient(135deg,var(--brand-1),var(--brand-2));border:none}
+.btn-mini:hover{transform:translateY(-2px)}
+
+/* ============ Contact ============ */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.contact-card{display:flex;gap:14px;align-items:center;padding:18px;border-radius:16px}
+.contact-ico{font-size:26px;background:linear-gradient(135deg,var(--brand-1),var(--brand-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.contact-label{font-weight:800}
+.contact-value{opacity:.8}
+
+/* ============ Footer ============ */
+.footer{background:#0f1118;color:#a8a8b3;border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:18px 0}
+
+/* ============ Micro-interactions ============ */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+.tilt{transform-style:preserve-3d;will-change:transform}
+
+/* ============ Responsive ============ */
+@media (max-width: 880px){
+  .nav-menu{display:none}
+  .hero-content{grid-template-columns:1fr;gap:26px;text-align:center}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr}
+  .about-side{order:-1}
+}
+
+/* White skill cards */
+.white-card {
+  background: #fff;
+  color: #1b1b25;
+  border: 1px solid #e9eaf3;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+}
+.white-card h4 {
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.white-card .bullet li {
+  color: #3c4155;
+}
+
+.about-highlights {
+  margin-top: 16px;
+  padding-left: 4px;
+  line-height: 1.8;
+}
+.about-highlights p {
+  margin: 6px 0;
+  color: #384159;
+}
+.about-highlights i {
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hero Data Visual */
+.data-visual {
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+  height:220px;
+  padding:20px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(139,92,246,.15), rgba(6,182,212,.15));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 28px rgba(0,0,0,.35);
+  animation:float 6s ease-in-out infinite;
+}
+
+.data-visual .bar {
+  flex:1;
+  background:linear-gradient(180deg, var(--brand-1), var(--brand-2));
+  border-radius:6px 6px 0 0;
+  height:var(--h);
+  animation:pulseBar 3s ease-in-out infinite alternate;
+}
+.data-visual .bar:nth-child(2){animation-delay:.2s}
+.data-visual .bar:nth-child(3){animation-delay:.4s}
+.data-visual .bar:nth-child(4){animation-delay:.6s}
+.data-visual .bar:nth-child(5){animation-delay:.8s}
+
+.visual-caption {
+  margin-top:12px;
+  font-weight:600;
+  font-size:.95rem;
+  color:#cfd0da;
+  text-align:center;
+}
+
+/* Animation */
+@keyframes pulseBar {
+  0%{transform:scaleY(.8)}
+  100%{transform:scaleY(1)}
+}
+
+/* ===== About: social circles (đồng bộ palette hiện có) ===== */
+.about-social{
+  display:flex; gap:14px; align-items:center;
+  margin-top:16px;
+}
+
+.social-btn{
+  width:56px; height:56px; border-radius:50%;
+  display:grid; place-items:center;
+  background:#fff;                /* theme-light */
+  border:1px solid #e9eaf3;
+  box-shadow:0 6px 18px rgba(10,10,15,.08);
+  position:relative; isolation:isolate;
+  transition:transform .18s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.social-btn i{
+  font-size:20px;
+  background:linear-gradient(135deg,var(--brand-1),var(--brand-2));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+/* viền “glow” gradient khi hover */
+.social-btn::after{
+  content:""; position:absolute; inset:-2px;
+  border-radius:50%;
+  background:conic-gradient(from 140deg, var(--brand-1), var(--brand-2), var(--brand-3), var(--brand-1));
+  opacity:.0; transition:opacity .22s ease;
+  z-index:-1; filter:blur(6px);
+}
+.social-btn:hover{
+  transform:translateY(-3px);
+  border-color:rgba(139,92,246,.38);
+  box-shadow:0 14px 30px rgba(124,58,237,.18);
+}
+.social-btn:hover::after{ opacity:.55; }
+
+/* Dark theme fallback (nếu dùng about trong nền tối) */
+.theme-accent .social-btn,
+.theme-gray .social-btn{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--glass-brd);
+  box-shadow:0 8px 24px rgba(0,0,0,.28);
+}
+.theme-accent .social-btn i,
+.theme-gray .social-btn i{
+  -webkit-text-fill-color:transparent;  /* giữ gradient icon */
+}
+
+/* Responsive */
+@media (max-width: 880px){
+  .about-social{ justify-content:center; }
+}
+
+.profile-photo-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-photo-card img {
+  width: 360px;        /* kích thước lớn hơn */
+  height: 360px;
+  object-fit: cover;
+  border-radius: 50%;  /* hình tròn */
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  border: none;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+/* Hiệu ứng hover */
+.profile-photo-card img:hover {
+  transform: scale(1.06) translateY(-6px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.35);
+}
+
+
+.about-main p {
+  margin-bottom: 18px;
+  font-weight: 500; /* chữ dày hơn */
+  line-height: 1.75;
+  color: #2a2a35;
+}
+
+.hero-avatar {
+  width: 200px;          /* chỉnh kích thước tùy ý */
+  height: 200px;
+  margin: 0 auto 12px;
+  border-radius: 50%;    /* bo tròn */
+  overflow: hidden;      /* cắt ảnh theo khung tròn */
+  background: none;      /* bỏ nền tím gradient */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25); /* shadow mềm */
+}
+
+.hero-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* giữ tỉ lệ không méo */
+  border-radius: 50%;
+  display: block;
+}
+
+/* BẬT bullet + canh lề đẹp */
+.skill-card .bullet{
+  list-style: disc;         /* hiển thị chấm đầu dòng */
+  padding-left: 1.2rem;     /* lùi vào một chút để marker không dính mép */
+  margin: 0;                /* bỏ margin thừa */
+}
+
+/* Màu bullet (trình duyệt hỗ trợ ::marker) */
+.skill-card .bullet li::marker{
+  color: var(--brand-1);    /* tím thương hiệu */
+}
+
+/* Dòng chữ vẫn dễ đọc */
+.skill-card .bullet li{
+  padding: 6px 0;
+  color: inherit;           /* kế thừa màu chữ hiện tại */
+}
+
+/* About: cards layout */
+.about-cards{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(260px, 1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+/* Card content */
+.about-card.white-card{ padding:18px; }
+
+/* Bullet list */
+.about-list{
+  list-style:disc;
+  padding-left:1.2rem;
+  margin:6px 0 0;
+  color:#384159; /* đồng bộ theme-light */
+  line-height:1.75;
+}
+.about-list li{ margin:4px 0; font-weight: 500; /* chữ dày hơn */ }
+.about-list li::marker{ color:var(--brand-1); }
+
+/* Responsive */
+@media (max-width: 880px){
+  .about-cards{ grid-template-columns:1fr; }
+}
+
+/* Contact cards: white & subtle hover */
+.theme-gray .contact-card{
+  background:#fff;
+  color:#1b1b25;
+  border:1px solid #e9eaf3;
+  box-shadow:0 6px 20px rgba(0,0,0,.08);
+  transition:transform .18s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.theme-gray .contact-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 36px rgba(0,0,0,.12);
+  border-color:#dfe3f1;
+}
+
+/* Text tones on white */
+.theme-gray .contact-card .contact-label{ font-weight:800; color:#1b1b25; }
+.theme-gray .contact-card .contact-value{ color:#3c4155; opacity:1; }
+
+/* Keyboard focus */
+.theme-gray .contact-card:focus-visible{
+  outline:3px solid rgba(139,92,246,.35);
+  outline-offset:4px;
+  border-color:rgba(139,92,246,.45);
+}
+
+/* Optional: keep gradient icon as is */
+.theme-gray .contact-card .contact-ico{
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  .theme-gray .contact-card{ transition:none; }
+}
+
+
+
+
